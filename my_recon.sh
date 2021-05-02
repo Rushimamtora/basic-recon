@@ -45,7 +45,7 @@ cat $domain/recon/httpx.txt | nuclei -t /home/bugswami1008/nuclei-templates/work
 nuclie_scanner
 
 wayback(){
-cat $domain/domain.txt | waybackurls | tee $domain/recon/wayback/wayback_tmp.txt
+cat $domain/domains.txt | waybackurls | tee $domain/recon/wayback/wayback_tmp.txt
 $domain/recon/wayback/wayback_tmp.txt | egrep -v "\.woff|\.tff|\.svg|\.eot|\.png|\.jpeg|\.jpg|\.css|\.ico" | sort -u >> $domain/recon/wayback/wayback_final.txt
 }
 wayback
