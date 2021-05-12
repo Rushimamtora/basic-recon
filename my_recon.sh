@@ -12,8 +12,11 @@ subfinder -d $domain -o $domain/sources/subfinder.txt
 assetfinder -subs-only $domain | tee $domain/sources/assetfinder.txt
 amass enum -passive -d $domain -o $domain/sources/amass.txt
 shuffledns -d $domain -w $wordlist -r $resolvers -o $domain/sources/shuffledns.txt
+gsan crtsh $domain -o $domain/sources/crtsh.txt
+
 
 cat $domain/sources/*.txt > $domain/sources/all.txt
+sort $domain/sources/all.txt | uniq -u > $domain/sources/sorted.txt
 }
 passive_enum
 
