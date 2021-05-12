@@ -14,14 +14,16 @@ amass enum -passive -d $domain -o $domain/sources/amass.txt
 shuffledns -d $domain -w $wordlist -r $resolvers -o $domain/sources/shuffledns.txt
 gsan crtsh $domain -o $domain/sources/crtsh.txt
 
-
 cat $domain/sources/*.txt > $domain/sources/all.txt
 sort $domain/sources/all.txt | uniq -u > $domain/sources/sorted.txt
+
+dnsx -l $domain/sources/sorted.txt -resp -a -aaaa -cname -mx -ns -soa -txt -o $domain/sources/dnsx.txt
+
 }
 passive_enum
 
 resolving_dns(){
-shuffledns -d $domain -list $domain/sources/all.txt -o $domain/domains.txt -r $resolvers
+shuffledns -d $domain -list $domain/sources/sorted.txt -o $domain/domains.txt -r $resolvers
 }
 resolving_dns
 
