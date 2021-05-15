@@ -1,6 +1,9 @@
 #!/bin/bash
 
 domain=$1
+green=`tput setaf 2`
+red=`tput setaf 1`
+
 wordlist="/home/bugswami1008/VAPT/SecLists/Discovery/DNS/deepmagic.com-prefixes-top500.txt"
 resolvers="/home/bugswami1008/resolvers.txt"
 
@@ -26,6 +29,23 @@ resolving_dns(){
 shuffledns -d $domain -list $domain/sources/sorted.txt -o $domain/domains.txt -r $resolvers
 }
 resolving_dns
+
+echo "finding endpoints....."
+
+gau -subs $domain | unfurl domains >> gau.txt
+
+waybackurls $domain | unfurl domains >> wayback.txt
+
+subfinder -d $domain -silent >> subfinder.txt
+
+cat gau.txt wayback.txt subfinder.txt | httpx -silent | aquatone -ports 80,443,8080,8433,8090,8009
+
+echo "now check your screenshot folder...."
+
+echo "If any unauthorised access page or any 403 error then try to do github recon to find some juicy information."
+
+echo -e "${green}Use this dorks \n${red}“testdev.admin.example.com” user:<username> <keytosearch> \n“testdev.admin.example.com” user:<username> auth_token \n“testdev.admin.example.com” user:<username> apikey \n“testdev.admin.example.com” user:<username> secret \n“testdev.admin.example.com” org:<name of organisation> “Django” \n“testdev.admin.example.com” org:<name of organisation> “Django” api_key \n“testdev.admin.example.com” org:<name of organisation> “Django” auth_token \n“testdev.admin.example.com” org:<name of organisation> “Django_admin” \n“example.com” org:<name of organisation> “Django” /admin/dashboard "
+
 
 http_probe(){
 cat $domain/domains.txt | httpx -threads 200 -o $domain/recon/httpx.txt
