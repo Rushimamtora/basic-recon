@@ -6,3 +6,5 @@ Download shuffledns, amass, httpx, assetfinder, waybackurl, fuff and save in the
 Also try to configure the setup by own !!!
 
 Happy Hacking !!
+
+[basic_recon](https://github.com/Rushimamtora/basic-recon/blob/main/my_recon.sh)
