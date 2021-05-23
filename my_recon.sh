@@ -37,7 +37,6 @@ gau -subs $domain | unfurl domains >> gau.txt
 waybackurls $domain | unfurl domains >> wayback.txt
 
 subfinder -d $domain -silent >> subfinder.txt
-
 cat gau.txt wayback.txt subfinder.txt | httpx -silent | aquatone -ports 80,443,8080,8433,8090,8009
 
 echo "now check your screenshot folder...."
